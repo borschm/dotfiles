@@ -1,0 +1,7 @@
+[user]
+	name = Markus Borsch
+	email = markbor@umich.edu
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
