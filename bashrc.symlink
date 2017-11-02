@@ -31,3 +31,9 @@ fi
 
 # default editor
 export EDITOR=vim
+
+# if exists, source local .bashrc
+LOCAL_BASH=$HOME/.bashrc_local
+if [ -f $LOCAL_BASH ]; then
+    . $LOCAL_BASH
+fi
