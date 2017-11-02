@@ -4,8 +4,9 @@ set-option -g prefix C-a
 bind-key C-a send-prefix
 
 # split panes using '-' and '|'
-bind | split-window -h
-bind - split-window -v
+bind | split-window -h -c "#{pane_current_path}"
+bind - split-window -v -c "#{pane_current_path}"
+bind c new-window -c "#{pane_current_path}"
 unbind '"'
 unbind %
 
@@ -49,6 +50,9 @@ bind-key ] paste-buffer
 bind-key > run-shell "tmux show-buffer | xclip -sel clip -i"
 # paste from system clipboard
 bind-key < run-shell "tmux set-buffer \"$(xclip -o -sel clipboard)\"; tmux paste-buffer"
+
+# default shell
+set-option -g default-shell /bin/bash
 
    
 
