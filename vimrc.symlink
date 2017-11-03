@@ -2,8 +2,9 @@
 " .vimrc file
 "
 
-
+" =========================================================
 " use Vundle for plugin management
+" =========================================================
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -36,6 +37,16 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 
 
+" =========================================================
+" various configurations
+" =========================================================
+
+" tell vim to keep a backup file
+set backup
+" tell vim where to put its backup files
+set backupdir=~/.vim-tmp
+" tell vim where to put swap files
+set dir=~/.vim-tmp
 
 " syntax highlighting
 syntax on
@@ -79,18 +90,12 @@ set nostartofline
 " no wrapping
 " set nowrap
 
-" " powerline
-" python3 from powerline.vim import setup as powerline_setup
-" python3 powerline_setup()
-" python3 del powerline_setup
-" set laststatus=2 " Always display the statusline in all windows
-" set showtabline=2 " Always display the tabline, even if there is only one tab
-" set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-" set t_Co=256
-
 set background=dark
 
+
+" =========================================================
 " NERTTree config
+" =========================================================
 " start with NERDTree if no file spcified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -99,7 +104,10 @@ map <C-n> :NERDTreeToggle<CR>
 " close vim if NERDTree is the last window open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+
+" =========================================================
 " airline
+" =========================================================
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='powerlineish'
 let g:airline_powerline_fonts = 1
