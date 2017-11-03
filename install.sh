@@ -37,7 +37,7 @@ if [ $OS == "fedora" ]; then
         dnf install "$1" -y
     }
 
-elif [$OS == "ubuntu" ]; then
+elif [ $OS == "ubuntu" ]; then
 
     echo "Detected ubuntu, use apt-get to install packages"
 
@@ -68,9 +68,10 @@ install_package tmux
 
 # powerline
 if [ $OS == "fedora" ]; then
+    echo "something"
     install_package powerline 
     install_package powerline-fonts
-else [ $OS == "ubuntu" ]; then
+elif [ $OS == "ubuntu" ]; then
     install_package powerline
 fi
 
