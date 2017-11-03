@@ -29,3 +29,8 @@ if [ ! -d $VUNDLE_DIR ]; then
     mkdir -p $VUNDLE_DIR
     git clone https://github.com/VundleVim/Vundle.vim.git $VUNDLE_DIR
 fi
+
+# create folder for vim tmp files
+if [ ! -d $HOME/.vim-tmp ]; then
+    mkdir -p $HOME/.vim-tmp
+fi
