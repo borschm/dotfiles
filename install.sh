@@ -34,14 +34,14 @@ if [ $OS == "fedora" ]; then
         #     echo "    ... INSTALLED."
         # fi
         echo "Try to install $1:"
-        dnf install "$1" -y
+        sudo dnf install "$1" -y
     }
 
 elif [$OS == "ubuntu" ]; then
 
     echo "Detected ubuntu, use apt-get to install packages"
 
-    apt-get update
+    sudo apt-get update
 
     install_package() {
         # echo "Try to install $1 ..."
@@ -52,7 +52,7 @@ elif [$OS == "ubuntu" ]; then
         #     echo "    ... INSTALLED."
         # fi
         echo "Try to install $1:"
-        apt-get -y install "$1"
+        sudo apt-get -y install "$1"
     }
 
 fi
@@ -64,7 +64,12 @@ fi
 install_package vim
 
 # tmux
-install_package tmux
+if [ $OS == "fedora" ]; then
+    install_package tmux
+else [ $OS == "ubuntu" ]; then
+    # version in repo is quite old, build from source instead
+    ./build_tmux.sh
+fi
 
 # powerline
 if [ $OS == "fedora" ]; then
