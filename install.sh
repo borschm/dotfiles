@@ -89,7 +89,7 @@ fi
 if [ $OS == $UBUNTU ]; then
     install_package fonts-hack-ttf
 elif [ $OS == $ARCH ]; then
-    install package ttf-hack
+    install_package ttf-hack
 elif [ $OS == $FEDORA ]; then
     echo "Install hack font manually."
 fi
