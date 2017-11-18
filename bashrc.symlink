@@ -6,16 +6,16 @@ if [ -f /etc/bashrc ]; then
 fi
 
 
-### Powerline
-# find file
-PL_SH=$(find /usr/share/powerline -name "bash")/powerline.sh
-# source file
-if [ -f $PL_SH ]; then
-    powerline-daemon -q
-    POWERLINE_BASH_CONTINUATION=1
-    POWERLINE_BASH_SELECT=1
-    source $PL_SH
-fi
+# ### Powerline
+# # find file
+# PL_SH=$(find /usr/share/powerline -name "bash")/powerline.sh
+# # source file
+# if [ -f $PL_SH ]; then
+#     powerline-daemon -q
+#     POWERLINE_BASH_CONTINUATION=1
+#     POWERLINE_BASH_SELECT=1
+#     source $PL_SH
+# fi
 
 
 ### default editor
@@ -46,12 +46,9 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+# Alias definitions
+if [ -f ~/.my_aliases ]; then
+    . ~/.my_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -65,8 +62,7 @@ if ! shopt -oq posix; then
     fi
 fi
 
-#
-### if exists, source local .bashrc
+# if exists, source local .bashrc
 LOCAL_BASH=$HOME/.bashrc_local
 if [ -f $LOCAL_BASH ]; then
     . $LOCAL_BASH

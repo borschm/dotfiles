@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# define distributions
+ARCH="arch"
+FEDORA="fedora"
+UBUNTU="ubuntu"
+
 # function to test if command exists
 command_exists() {
     type "$1" > /dev/null 2>&1
@@ -21,7 +26,7 @@ fi
 
 
 # define function to install packages with package manager
-if [ $OS == "fedora" ]; then
+if [ $OS == $FEDORA ]; then
 
     echo "Detected fedora, use dnf to install packages"
 
@@ -37,7 +42,7 @@ if [ $OS == "fedora" ]; then
         sudo dnf install "$1" -y
     }
 
-elif [ $OS == "ubuntu" ]; then
+elif [ $OS == $UBUNTU ]; then
 
     echo "Detected ubuntu, use apt-get to install packages"
 
@@ -55,6 +60,15 @@ elif [ $OS == "ubuntu" ]; then
         sudo apt-get -y install "$1"
     }
 
+elif [ $OS == $ARCH ]; then
+
+    echo "Detected arch, use pacman to install packages"
+
+    install_package() {
+        echo "Try to install $1:"
+        sudo pacman -S "$1" --noconfirm
+    }
+
 fi
 
 
@@ -64,21 +78,35 @@ fi
 install_package vim
 
 # tmux
-if [ $OS == "fedora" ]; then
-    install_package tmux
-else [ $OS == "ubuntu" ]; then
+if [ $OS == $UBUNTU ]; then
     # version in repo is quite old, build from source instead
     ./build_tmux.sh
+else
+    install_package tmux
 fi
 
-# powerline
-if [ $OS == "fedora" ]; then
-    echo "something"
-    install_package powerline 
-    install_package powerline-fonts
-elif [ $OS == "ubuntu" ]; then
-    install_package powerline
+# hack font
+if [ $OS == $UBUNTU ]; then
+    install_package fonts-hack-ttf
+elif [ $OS == $ARCH ]; then
+    install package ttf-hack
+elif [ $OS == $FEDORA ]; then
+    echo "Install hack font manually."
 fi
+
+# # powerline
+# if [ $OS == $FEDORA ]; then
+#     echo "something"
+#     install_package powerline 
+#     install_package powerline-fonts
+# elif [ $OS == $UBUNTU ]; then
+#     install_package powerline
+# fi
 
 # xclip
 install_package xclip
+
+# oh my zsh
+if [ ! -d ~/.oh-my-zsh ]; then
+    echo "Install oh-my-zsh, follow instructions on http://ohmyz.sh/"
+fi

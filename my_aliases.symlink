@@ -1,0 +1,27 @@
+# File containing my aliases
+# sourced by both .zshrc and .bashrc
+
+# colored output for ls and grep
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# ls after cd (actually not an alias but a function
+cs () {
+    cd "$@" && ls -l
+}
+
+# create tar
+alias mktar='tar -cvf'
+alias untar='tar -xvf'
+
+# create tar.gz
+alias mktar.gz='tar -zcvf'
+alias untar.gz='tar -zxvf'
+
+# disk usage
+alias duh='du -hs'
+
+# sudo vim
+alias svim='sudo -i vim'
