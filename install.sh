@@ -39,7 +39,7 @@ if [ $OS == $FEDORA ]; then
         #     echo "    ... INSTALLED."
         # fi
         echo "Try to install $1:"
-        sudo dnf install "$1" -y
+        sudo dnf install "$1"
     }
 
 elif [ $OS == $UBUNTU ]; then
@@ -57,7 +57,7 @@ elif [ $OS == $UBUNTU ]; then
         #     echo "    ... INSTALLED."
         # fi
         echo "Try to install $1:"
-        sudo apt-get -y install "$1"
+        sudo apt-get install "$1"
     }
 
 elif [ $OS == $ARCH ]; then
@@ -66,7 +66,7 @@ elif [ $OS == $ARCH ]; then
 
     install_package() {
         echo "Try to install $1:"
-        sudo pacman -S "$1" --noconfirm
+        sudo pacman -S "$1"
     }
 
 fi
