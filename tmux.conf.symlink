@@ -51,7 +51,8 @@ bind-key > run-shell "tmux show-buffer | xclip -sel clip -i"
 bind-key < run-shell "tmux set-buffer \"$(xclip -o -sel clipboard)\"; tmux paste-buffer"
 
 # default shell
-set-option -g default-shell /bin/bash
+# set-option -g default-shell /bin/bash
+set-option -g default-shell /usr/bin/zsh
 
    
 
