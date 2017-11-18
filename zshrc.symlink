@@ -1,3 +1,5 @@
+export DOTFILES=$HOME/dotfiles
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -104,3 +106,10 @@ fi
 if [[ -f ~/.my_aliases ]]; then
     . ~/.my_aliases
 fi
+
+# source local rc files if exists
+if [[ -a ~/.zshrc_local ]]; then
+    . ~/.zshrc_local
+fi
+
+export PATH=$DOTFILES/bin:$PATH
