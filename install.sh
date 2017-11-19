@@ -107,6 +107,7 @@ fi
 install_package xclip
 
 # oh my zsh
+install_package zsh
 if [ ! -d ~/.oh-my-zsh ]; then
     echo "Install oh-my-zsh, follow instructions on http://ohmyz.sh/"
 fi
