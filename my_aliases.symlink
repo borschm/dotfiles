@@ -25,3 +25,6 @@ alias duh='du -hs'
 
 # sudo vim
 alias svim='sudo -i vim'
+
+# tmux
+alias td='tmux detach'
