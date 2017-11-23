@@ -21,6 +21,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vimwiki/vimwiki'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -116,3 +117,16 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='powerlineish'
 let g:airline_powerline_fonts = 1
+
+" =========================================================
+" vimwiki
+" =========================================================
+set nocompatible
+filetype plugin on
+syntax on
+" set default path for wiki and set syntax to markdown
+let g:vimwiki_list = [{'path': '~/Dropbox/journal/', 'syntax': 'markdown', 'ext': '.md'}]
+" add heading with today's date
+autocmd Filetype vimwiki nnoremap <buffer> <leader>de O### <ESC>"=strftime("%a %d %b %y")<CR>po<CR><CR><ESC>kO  * 
+" adjust tab width to be tow spaces and not 4 as usual
+autocmd Filetype vimwiki setlocal ts=2 sts=2 expandtab
