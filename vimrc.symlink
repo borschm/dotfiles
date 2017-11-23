@@ -63,6 +63,7 @@ augroup END
 " set tabs
 set tabstop=4
 set softtabstop=4
+set shiftwidth=4
 set expandtab
 
 " set auto indentation
@@ -129,4 +130,4 @@ let g:vimwiki_list = [{'path': '~/Dropbox/journal/', 'syntax': 'markdown', 'ext'
 " add heading with today's date
 autocmd Filetype vimwiki nnoremap <buffer> <leader>de O### <ESC>"=strftime("%a %d %b %y")<CR>po<CR><CR><ESC>kO  * 
 " adjust tab width to be tow spaces and not 4 as usual
-autocmd Filetype vimwiki setlocal ts=2 sts=2 expandtab
+autocmd Filetype vimwiki setlocal ts=2 sts=2 sw=2 expandtab
