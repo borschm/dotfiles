@@ -1,3 +1,0 @@
-#!/usr/bin/zsh
-
-vim +3 ~/Dropbox/journal/quick_notes.md

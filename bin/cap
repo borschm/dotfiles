@@ -1,0 +1,4 @@
+#!/usr/bin/zsh
+
+# capture a quick note
+vim -c "call Capture()"
