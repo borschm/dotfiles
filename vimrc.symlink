@@ -153,6 +153,13 @@ nnoremap <leader>c :call Capture()<CR>
 " =========================================================
 " use calendar to navigate daily notes
 
+let g:calendar_monday = 1
+let g:calendar_weeknm = 4
+let g:calendar_mark = 'right'
+
+" no line numbers for calendar
+autocmd Filetype calendar set norelativenumber nonumber
+
 " do not use vimwiki's diary option, instead define own function to execute
 let g:vimwiki_use_calendar = 0
 let g:calendar_action = 'OpenJournal'
@@ -236,7 +243,8 @@ function! OpenJournal(day,month,year,week,dir)
         :execute "normal o\<CR>\<CR>### \<ESC>\"=date\<CR>po\<CR>  * "
         :startinsert!
     else
-        " do nothing, just stay at current day entry
+        " put line of entry on top of the page
+        :execute "normal z\<CR>"
     endif
-endfunction
 
+endfunction
