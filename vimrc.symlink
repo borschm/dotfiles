@@ -229,7 +229,7 @@ function! OpenJournal(day,month,year,week,dir)
     let date = dayName . ", " . monthName . " " . a:day . " " . a:year
 
     " open file and go to beginning
-    :e ~/Dropbox/journal/journal2017.md
+    :e ~/Dropbox/journal/journal2018.md
     :normal gg
 
     " check if entry exists
