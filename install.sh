@@ -84,6 +84,11 @@ if [ $OS == $UBUNTU ]; then
 else
     install_package tmux
 fi
+# plugin manager
+if [[ ! -d ~/.tmux/plugins/tpm ]]; then
+    mkdir -p ~/.tmux/plugins/tpm
+fi
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # hack font
 if [ $OS == $UBUNTU ]; then
