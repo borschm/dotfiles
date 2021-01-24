@@ -2,7 +2,7 @@
 
 # backup dotfiles that will be replaced by symlinks to the dotfiles folder
 
-# define paths to dotfile folter and backup folder
+# define paths to dotfile folder and backup folder
 DOTFILES=$HOME/dotfiles
 BACKUP_DIR=$HOME/dotfiles-backup
 
