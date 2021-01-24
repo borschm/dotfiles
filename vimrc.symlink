@@ -21,8 +21,8 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'vimwiki/vimwiki'
-Plugin 'mattn/calendar-vim'
+" Plugin 'vimwiki/vimwiki'
+" Plugin 'mattn/calendar-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -102,7 +102,7 @@ set background=dark
 
 
 " =========================================================
-" NERTTree config
+" NERDTree config
 " =========================================================
 " " start with NERDTree if no file spcified
 " autocmd StdinReadPre * let s:std_in=1
@@ -120,131 +120,134 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='powerlineish'
 let g:airline_powerline_fonts = 1
 
-" =========================================================
-" vimwiki
-" =========================================================
-set nocompatible
-filetype plugin on
-syntax on
-" set default path for wiki and set syntax to markdown
-let g:vimwiki_list = [{'path': '~/Dropbox/journal/', 'syntax': 'markdown', 'ext': '.md'}]
-" add heading with today's date
-autocmd Filetype vimwiki nnoremap <buffer> <leader>de O### <ESC>"=strftime("%a %d %b %y")<CR>po<CR><CR><ESC>kO  * 
-" adjust tab width to be tow spaces and not 4 as usual
-autocmd Filetype vimwiki setlocal ts=2 sts=2 sw=2 expandtab
 
-" function to capture a note
-function! Capture()
-    " open inbox file
-    :e ~/Dropbox/journal/inbox.md
-    " end of file and add space
-    :execute "normal! Go\<ESC>0d$"
-    :execute "normal! Go\<ESC>0d$"
-    " write header and first bullet point
-    " :execute "normal! i## date and time\<CR>\<CR>  * "
-    :execute "normal i## \<ESC>\"=strftime(\"%c\")\<CR>po\<CR>  * "
-    :execute "startinsert!"
-endfunction
-" capture shortcut: c for capture
-nnoremap <leader>c :call Capture()<CR>
+" before uncomenting this part, add the vimwiki plugin on top of file
+" " =========================================================
+" " vimwiki
+" " =========================================================
+" set nocompatible
+" filetype plugin on
+" syntax on
+" " set default path for wiki and set syntax to markdown
+" let g:vimwiki_list = [{'path': '~/Dropbox/journal/', 'syntax': 'markdown', 'ext': '.md'}]
+" " add heading with today's date
+" autocmd Filetype vimwiki nnoremap <buffer> <leader>de O### <ESC>"=strftime("%a %d %b %y")<CR>po<CR><CR><ESC>kO  * 
+" " adjust tab width to be tow spaces and not 4 as usual
+" autocmd Filetype vimwiki setlocal ts=2 sts=2 sw=2 expandtab
+" 
+" " function to capture a note
+" function! Capture()
+"     " open inbox file
+"     :e ~/Dropbox/journal/inbox.md
+"     " end of file and add space
+"     :execute "normal! Go\<ESC>0d$"
+"     :execute "normal! Go\<ESC>0d$"
+"     " write header and first bullet point
+"     " :execute "normal! i## date and time\<CR>\<CR>  * "
+"     :execute "normal i## \<ESC>\"=strftime(\"%c\")\<CR>po\<CR>  * "
+"     :execute "startinsert!"
+" endfunction
+" " capture shortcut: c for capture
+" nnoremap <leader>c :call Capture()<CR>
 
-" =========================================================
-" calendar-vim
-" =========================================================
-" use calendar to navigate daily notes
-
-let g:calendar_monday = 1
-let g:calendar_weeknm = 4
-let g:calendar_mark = 'right'
-
-" no line numbers for calendar
-autocmd Filetype calendar set norelativenumber nonumber
-
-" do not use vimwiki's diary option, instead define own function to execute
-let g:vimwiki_use_calendar = 0
-let g:calendar_action = 'OpenJournal'
-
-" map calendar to a key: d for daily
-nnoremap <leader>d :Calendar<CR>
-
-" function to parse number of month to a word
-function! ParseMonth(month)
-    if a:month == 1
-        return 'Jan'
-    elseif a:month == 2
-        return 'Feb'
-    elseif a:month == 3
-        return 'Mar'
-    elseif a:month == 4
-        return 'Apr'
-    elseif a:month == 5
-        return 'May'
-    elseif a:month == 6
-        return 'Jun'
-    elseif a:month == 7
-        return 'Jul'
-    elseif a:month == 8
-        return 'Aug'
-    elseif a:month == 9
-        return 'Sep'
-    elseif a:month == 10
-        return 'Oct'
-    elseif a:month == 11
-        return 'Nov'
-    elseif a:month == 12
-        return 'Dec'
-    endif
-endfunction
-
-" function to parse day of the week to word
-function! ParseWeekday(week)
-    if a:week == 1
-        return 'Mon'
-    elseif a:week == 2
-        return 'Tue'
-    elseif a:week == 3
-        return 'Wed'
-    elseif a:week == 4
-        return 'Thu'
-    elseif a:week == 5
-        return 'Fri'
-    elseif a:week == 6
-        return 'Sat'
-    elseif a:week == 7
-        return 'Sun'
-    endif
-endfunction
-
-" function to open journal entry after choosing date in calendar
-function! OpenJournal(day,month,year,week,dir)
-    " close current window and move to previous one
-    :q
-    :execute "normal \<C-W>\<C-P>"
-
-    " get name of weekday and month
-    let dayName = ParseWeekday(a:week)
-    let monthName = ParseMonth(a:month)
-
-    " create string with chosen date
-    let date = dayName . ", " . monthName . " " . a:day . " " . a:year
-
-    " open file and go to beginning
-    :e ~/Dropbox/journal/journal2018.md
-    :normal gg
-
-    " check if entry exists
-    let g:lNum = search(date)
-
-    " if entry does not exist, create it
-    if g:lNum == 0
-        " create new entry
-        let g:lNum2 = search('CONTINUE HERE')
-        " :normal o<CR>### <ESC>"=date<CR>po<CR>  * 
-        :execute "normal o\<CR>\<CR>### \<ESC>\"=date\<CR>po\<CR>  * "
-        :startinsert!
-    else
-        " put line of entry on top of the page
-        :execute "normal z\<CR>"
-    endif
-
-endfunction
+" before uncomenting this part, add the calendar-vim plugin on top of file
+" " =========================================================
+" " calendar-vim
+" " =========================================================
+" " use calendar to navigate daily notes
+" 
+" let g:calendar_monday = 1
+" let g:calendar_weeknm = 4
+" let g:calendar_mark = 'right'
+" 
+" " no line numbers for calendar
+" autocmd Filetype calendar set norelativenumber nonumber
+" 
+" " do not use vimwiki's diary option, instead define own function to execute
+" let g:vimwiki_use_calendar = 0
+" let g:calendar_action = 'OpenJournal'
+" 
+" " map calendar to a key: d for daily
+" nnoremap <leader>d :Calendar<CR>
+" 
+" " function to parse number of month to a word
+" function! ParseMonth(month)
+"     if a:month == 1
+"         return 'Jan'
+"     elseif a:month == 2
+"         return 'Feb'
+"     elseif a:month == 3
+"         return 'Mar'
+"     elseif a:month == 4
+"         return 'Apr'
+"     elseif a:month == 5
+"         return 'May'
+"     elseif a:month == 6
+"         return 'Jun'
+"     elseif a:month == 7
+"         return 'Jul'
+"     elseif a:month == 8
+"         return 'Aug'
+"     elseif a:month == 9
+"         return 'Sep'
+"     elseif a:month == 10
+"         return 'Oct'
+"     elseif a:month == 11
+"         return 'Nov'
+"     elseif a:month == 12
+"         return 'Dec'
+"     endif
+" endfunction
+" 
+" " function to parse day of the week to word
+" function! ParseWeekday(week)
+"     if a:week == 1
+"         return 'Mon'
+"     elseif a:week == 2
+"         return 'Tue'
+"     elseif a:week == 3
+"         return 'Wed'
+"     elseif a:week == 4
+"         return 'Thu'
+"     elseif a:week == 5
+"         return 'Fri'
+"     elseif a:week == 6
+"         return 'Sat'
+"     elseif a:week == 7
+"         return 'Sun'
+"     endif
+" endfunction
+" 
+" " function to open journal entry after choosing date in calendar
+" function! OpenJournal(day,month,year,week,dir)
+"     " close current window and move to previous one
+"     :q
+"     :execute "normal \<C-W>\<C-P>"
+" 
+"     " get name of weekday and month
+"     let dayName = ParseWeekday(a:week)
+"     let monthName = ParseMonth(a:month)
+" 
+"     " create string with chosen date
+"     let date = dayName . ", " . monthName . " " . a:day . " " . a:year
+" 
+"     " open file and go to beginning
+"     :e ~/Dropbox/journal/journal2018.md
+"     :normal gg
+" 
+"     " check if entry exists
+"     let g:lNum = search(date)
+" 
+"     " if entry does not exist, create it
+"     if g:lNum == 0
+"         " create new entry
+"         let g:lNum2 = search('CONTINUE HERE')
+"         " :normal o<CR>### <ESC>"=date<CR>po<CR>  * 
+"         :execute "normal o\<CR>\<CR>### \<ESC>\"=date\<CR>po\<CR>  * "
+"         :startinsert!
+"     else
+"         " put line of entry on top of the page
+"         :execute "normal z\<CR>"
+"     endif
+" 
+" endfunction
